@@ -11,14 +11,14 @@ export default function Dashboard() {
         <div className="px-8">
             <div className="grid grid-cols-2 gap-6 mb-8">
                 <StatCard
-                    title="Customers"
+                    title="Utilisateurs"
                     value="3,782"
                     trend="up"
                     trendValue="↑ 11.01%"
                     icon={Users}
                 />
                 <StatCard
-                    title="Orders"
+                    title="Missions"
                     value="5,359"
                     trend="down"
                     trendValue="↓ 9.05%"

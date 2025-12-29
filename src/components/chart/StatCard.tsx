@@ -18,7 +18,7 @@ export default function StatCard({
     const isUp = trend === 'up';
 
     return (
-        <div className="bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200">
+        <div className="bg-gray-800 rounded-lg p-6 shadow-sm">
             <div className="flex items-start justify-between">
                 <div>
                     <p className="text-gray-600 text-sm font-medium mb-2">{title}</p>
