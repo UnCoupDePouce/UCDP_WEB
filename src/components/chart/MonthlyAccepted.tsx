@@ -11,7 +11,7 @@ import {
 
 type SalesData = {
     month: string;
-    sales: number;
+    missions: number;
 };
 
 type MonthtlyChartProps = {
@@ -20,9 +20,9 @@ type MonthtlyChartProps = {
 
 export default function MonthlyAccepted({ data }: MonthtlyChartProps) {
     return (
-        <div className="bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200">
+        <div className="bg-gray-800 rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-white">Monthly Sales</h3>
+                <h3 className="text-lg font-semibold text-white">Missions par mois</h3>
                 <button className="p-1 hover:bg-gray-100 rounded">
                     <MoreVertical className="w-5 h-5 text-gray-400" />
                 </button>
@@ -34,7 +34,7 @@ export default function MonthlyAccepted({ data }: MonthtlyChartProps) {
                     <XAxis dataKey="month" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="sales" fill="#3b82f6" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="missions" fill="#3b82f6" radius={[8, 8, 0, 0]} />
                 </BarChart>
             </ResponsiveContainer>
         </div>
