@@ -83,10 +83,20 @@ export async function updateUser(id: number, payload: UserUpdatePayload): Promis
   return res.json() as Promise<UserRecord>;
 }
 
-export async function fetchUsers(): Promise<UserRecord[]> {
-  const res = await fetch(`${API_URL}/api/user`, { headers: authHeaders() });
+export type UsersResponse = {
+  data: UserRecord[];
+  total: number;
+  page: number;
+  limit: number;
+};
+
+export async function fetchUsers(page = 1, limit = 10): Promise<UsersResponse> {
+  const url = new URL(`${API_URL}/api/user`);
+  url.searchParams.set('page', String(page));
+  url.searchParams.set('limit', String(limit));
+  const res = await fetch(url.toString(), { headers: authHeaders() });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json() as Promise<UserRecord[]>;
+  return res.json() as Promise<UsersResponse>;
 }
 
 export type MissionRecord = {

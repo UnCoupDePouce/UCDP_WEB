@@ -210,17 +210,20 @@ function Field({ label, value }: { label: string; value?: string | null }) {
 
 export default function Utilisateur() {
     const [users, setUsers] = useState<UserRecord[]>([]);
+    const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [editing, setEditing] = useState<EditState | null>(null);
 
     useEffect(() => {
-        fetchUsers()
-            .then(setUsers)
+        setLoading(true);
+        setError("");
+        fetchUsers(currentPage, ITEMS_PER_PAGE)
+            .then(res => { setUsers(res.data); setTotal(res.total); })
             .catch((e: Error) => setError(e.message))
             .finally(() => setLoading(false));
-    }, []);
+    }, [currentPage]);
 
     const handleSaved = (updated: UserRecord) => {
         setUsers(prev => prev.map(u => u.id_utilisateur === updated.id_utilisateur ? { ...u, ...updated } : u));
@@ -242,8 +245,8 @@ export default function Utilisateur() {
         id_entreprise: user.id_entreprise,
     });
 
-    const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
-    const paginated = users.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
+    const paginated = users;
 
     return (
         <div className="px-8 pb-8">
