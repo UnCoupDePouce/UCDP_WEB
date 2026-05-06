@@ -2,8 +2,8 @@ import {Link} from "react-router";
 
 export default function Error404() {
     return (
-        <div className="px-8" style={{height: "calc(100vh - 80px)"}}>
-            <div className="border-white/20 border-dashed border rounded-xl overflow-hidden relative h-full">
+        <div className="px-8 pb-8">
+            <div className="border-white/20 border-dashed border rounded-xl overflow-hidden relative min-h-[calc(100vh-200px)]">
                 <svg
                     fill="none"
                     className="opacity-50 absolute inset-0 h-full w-full stroke-white/10"

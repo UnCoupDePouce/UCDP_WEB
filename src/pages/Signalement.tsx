@@ -1,7 +1,7 @@
 export default function Signalement(){
     return(
-        <div className="px-8" style={{ height: 'calc(100vh - 80px)' }}>
-            <div className="opacity-75 border-white/20 border-dashed border rounded-xl overflow-hidden relative h-full">
+        <div className="px-8 pb-8">
+            <div className="opacity-75 border-white/20 border-dashed border rounded-xl overflow-hidden relative h-[calc(100vh-200px)] min-h-[400px]">
                 <svg
                     fill="none"
                     className="absolute inset-0 h-full w-full stroke-white/10"

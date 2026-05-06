@@ -10,7 +10,7 @@ export default function Document() {
     const currentDocs = documents.slice(currentPage * docsPerPage, (currentPage + 1) * docsPerPage);
 
     return (
-        <div className="min-h-screen bg-gray-950 p-8">
+        <div className="px-8 pb-8">
             <div className="mx-auto max-w-7xl">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-white">Documents</h1>

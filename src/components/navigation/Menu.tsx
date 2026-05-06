@@ -6,7 +6,7 @@ function Menu() {
     return (
         <div className="col-start-1 row-span-2 row-start-1 max-2xl:hidden">
             <div
-                className="sticky top-14 z-10 flex h-full max-h-[calc(100dvh---spacing(14))] flex-col bg-white dark:bg-gray-950">
+                className="sticky top-14 z-10 flex h-full max-h-[calc(100dvh-var(--spacing-14))] flex-col bg-white dark:bg-gray-950">
                 <div className="flex-1 overflow-y-auto p-6">
                     <ul role="list" className="flex flex-col gap-8">
                         <li>

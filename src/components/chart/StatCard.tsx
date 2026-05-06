@@ -1,49 +1,35 @@
-import {TrendingUp, TrendingDown, type LucideIcon} from 'lucide-react';
+import { type LucideIcon } from 'lucide-react';
 
 type StatCardProps = {
-    title: string;
-    value: string;
-    trend: 'up' | 'down';
-    trendValue: string;
-    icon: LucideIcon;
+  title: string;
+  value: string;
+  icon: LucideIcon;
+  percentage?: number;
 };
 
 export default function StatCard({
-                                     title,
-                                     value,
-                                     trend,
-                                     trendValue,
-                                     icon: Icon,
-                                 }: StatCardProps) {
-    const isUp = trend === 'up';
-
-    return (
-        <div className="bg-gray-800 rounded-lg p-6 shadow-sm">
-            <div className="flex items-start justify-between">
-                <div>
-                    <p className="text-gray-600 text-sm font-medium mb-2">{title}</p>
-                    <p className="text-3xl font-bold text-white mb-2">{value}</p>
-
-                    <div className="flex items-center gap-1">
-                        {isUp ? (
-                            <TrendingUp className="w-4 h-4 text-green-500" />
-                        ) : (
-                            <TrendingDown className="w-4 h-4 text-red-500" />
-                        )}
-                        <span
-                            className={`text-sm font-medium ${
-                                isUp ? 'text-green-600' : 'text-red-600'
-                            }`}
-                        >
-              {trendValue}
-            </span>
-                    </div>
-                </div>
-
-                <div className="p-3 bg-gray-100 rounded-lg">
-                    <Icon className="w-6 h-6 text-gray-600" />
-                </div>
-            </div>
+  title,
+  value,
+  icon: Icon,
+  percentage = 50,
+}: StatCardProps) {
+  return (
+    <div className="flex flex-col h-full justify-between">
+      <div className="flex items-start justify-between mb-2">
+        <div className="flex flex-col">
+           <p className="text-gray-500 text-sm font-medium mb-1">{title}</p>
+           <p className="text-lg font-bold text-black">{value}</p>
         </div>
-    );
+        <div className="bg-[#f7b70c] rounded-[6px] p-1.5 shadow-sm">
+          <Icon className="w-3 h-3 text-white" />
+        </div>
+      </div>
+      <div className="w-full bg-gray-200 rounded-full h-1 mt-auto">
+        <div
+          className="bg-teal-500 h-1 rounded-full"
+          style={{ width: `${percentage}%` }}
+        />
+      </div>
+    </div>
+  );
 }
