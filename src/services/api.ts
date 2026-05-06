@@ -17,7 +17,7 @@ export type AuthResponse = {
 };
 
 export async function loginUser(email: string, password: string): Promise<AuthResponse> {
-    const res = await fetch(`${API_URL}/api/user/login`, {
+    const res = await fetch(`${API_URL}/api/user/login-admin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
