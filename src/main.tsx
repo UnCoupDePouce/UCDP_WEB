@@ -4,9 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Menu from './components/navigation/Menu.tsx';
-import Document from './pages/Document.tsx';
 import Utilisateur from './pages/Utilisateur.tsx';
-import Signalement from './pages/Signalement.tsx';
 import Mission from './pages/Mission.tsx';
 import Logs from './pages/Logs.tsx';
 import Dashboard from './pages/Dashboard.tsx';
@@ -42,9 +40,7 @@ function ProtectedApp() {
                                 <Route path="/" element={<Dashboard />} />
                                 <Route path="utilisateurs" element={<Utilisateur />} />
                                 <Route path="utilisateurs/create" element={<CreateUser />} />
-                                <Route path="documents" element={<Document />} />
                                 <Route path="missions" element={<Mission />} />
-                                <Route path="signalements" element={<Signalement />} />
                                 <Route path="logs" element={<Logs />} />
                                 <Route path="*" element={<Error404 />} />
                             </Routes>

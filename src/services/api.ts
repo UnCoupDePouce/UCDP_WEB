@@ -30,9 +30,15 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
 export type LogEntry = {
     id: string;
     message: string;
-    stack: string | null;
     route: string | null;
     method: string | null;
+    level: string;
+    statusCode: number | null;
+    ip: string | null;
+    userId: number | null;
+    queryParams: Record<string, unknown>;
+    body: Record<string, unknown>;
+    headers: Record<string, string>;
     date: string;
 };
 

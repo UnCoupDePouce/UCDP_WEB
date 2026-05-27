@@ -25,9 +25,10 @@ export function AuthProvider({children}: { children: ReactNode }) {
         if (data.user.role === "ADMIN") {
             setToken(data.token);
             setUser(data.user);
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
             localStorage.setItem('role', data.user.role);
         }
-            localStorage.setItem('role', data.user.role);
     };
 
     const logout = () => {
