@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
-import { loginUser, type AuthResponse } from '../services/api';
+import {createContext, useContext, useState, type ReactNode} from 'react';
+import {loginUser, type AuthResponse} from '../services/api';
 
 type AuthUser = AuthResponse['user'];
 
@@ -13,7 +13,7 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({children}: { children: ReactNode }) {
     const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
     const [user, setUser] = useState<AuthUser | null>(() => {
         const stored = localStorage.getItem('user');
@@ -22,10 +22,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const login = async (email: string, password: string) => {
         const data = await loginUser(email, password);
-        setToken(data.token);
-        setUser(data.user);
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        if (data.user.role === "ADMIN") {
+            setToken(data.token);
+            setUser(data.user);
+            localStorage.setItem('role', data.user.role);
+        }
+            localStorage.setItem('role', data.user.role);
     };
 
     const logout = () => {
@@ -36,7 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, isAuthenticated: !!token, login, logout }}>
+        <AuthContext.Provider value={{user, token, isAuthenticated: !!token, login, logout}}>
             {children}
         </AuthContext.Provider>
     );
