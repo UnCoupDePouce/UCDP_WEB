@@ -17,7 +17,7 @@ function formatDate(iso: string | null) {
     return new Date(iso).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" });
 }
 
-type EditState = UserUpdatePayload & { id: number };
+type EditState = UserUpdatePayload & { id: string };
 
 function EditModal({ user, onClose, onSaved }: {
     user: EditState;
@@ -126,9 +126,8 @@ function EditModal({ user, onClose, onSaved }: {
                         <div>
                             <label className={labelCls}>ID Entreprise</label>
                             <input
-                                type="number"
                                 value={form.id_entreprise ?? ""}
-                                onChange={e => setForm(f => ({ ...f, id_entreprise: e.target.value === "" ? null : Number(e.target.value) }))}
+                                onChange={setStr("id_entreprise")}
                                 className={inputCls}
                             />
                         </div>
@@ -191,9 +190,9 @@ function UserCard({ user, onEdit }: { user: UserRecord; onEdit: () => void }) {
             {/* Ligne 4 : crédits + id entreprise + date */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-1">
                 <Field label="Crédits" value={user.credits?.toString()} />
-                <Field label="ID Entreprise" value={user.id_entreprise?.toString()} />
+                <Field label="ID Entreprise" value={user.id_entreprise} />
                 <Field label="Créé le" value={formatDate(user.date_creation)} />
-                <Field label="ID" value={user.id_utilisateur.toString()} />
+                <Field label="ID" value={user.id_utilisateur} />
             </div>
         </div>
     );
@@ -220,13 +219,25 @@ export default function Utilisateur() {
         setLoading(true);
         setError("");
         fetchUsers(currentPage, ITEMS_PER_PAGE)
-            .then(res => { setUsers(res.data); setTotal(res.total); })
-            .catch((e: Error) => setError(e.message))
+            .then(res => {
+                console.log("API Response (fetchUsers):", res);
+                if (Array.isArray(res)) {
+                    setUsers(res);
+                    setTotal(res.length);
+                } else {
+                    setUsers(res.data || []);
+                    setTotal(res.total || 0);
+                }
+            })
+            .catch((e: Error) => {
+                console.error("API Error (fetchUsers):", e);
+                setError(e.message);
+            })
             .finally(() => setLoading(false));
     }, [currentPage]);
 
     const handleSaved = (updated: UserRecord) => {
-        setUsers(prev => prev.map(u => u.id_utilisateur === updated.id_utilisateur ? { ...u, ...updated } : u));
+        setUsers(prev => (prev || []).map(u => u.id_utilisateur === updated.id_utilisateur ? { ...u, ...updated } : u));
         setEditing(null);
     };
 
@@ -242,11 +253,11 @@ export default function Utilisateur() {
         ville: user.ville ?? "",
         raison_sociale: user.raison_sociale ?? "",
         credits: user.credits,
-        id_entreprise: user.id_entreprise,
+        id_entreprise: user.id_entreprise ?? "",
     });
 
     const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
-    const paginated = users;
+    const paginated = users || [];
 
     return (
         <div className="px-8 pb-8">

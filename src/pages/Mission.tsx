@@ -22,13 +22,13 @@ export default function Mission() {
 
     useEffect(() => {
         fetchMissions()
-            .then(setMissions)
+            .then(res => setMissions(Array.isArray(res) ? res : []))
             .catch((e: Error) => setError(e.message))
             .finally(() => setLoading(false));
     }, []);
 
-    const totalPages = Math.ceil(missions.length / ITEMS_PER_PAGE);
-    const paginated = missions.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+    const totalPages = Math.ceil((missions || []).length / ITEMS_PER_PAGE);
+    const paginated = (missions || []).slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
     return (
         <div className="px-8 pb-8">
